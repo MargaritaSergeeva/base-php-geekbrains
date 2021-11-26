@@ -34,5 +34,7 @@
       return $translitString;
    }
 
+   echo str_replace(array_keys($translitLetters), array_values($translitLetters), $str) . '<br>' . PHP_EOL;
+
    echo translit($str, $translitLetters);
 ?>
