@@ -31,6 +31,11 @@
   color:inherit;
 }
 
+.custom-file-label::after {
+  content: "Выбрать";
+}
+
+
 @media (max-width:767px) {
   .photo-gallery h2 {
     margin-bottom:25px;
