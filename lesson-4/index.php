@@ -1,3 +1,7 @@
+<?php
+      $photos = scandir("images/small-images");
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -17,31 +21,33 @@
       <div class="photo-gallery">
             <div class="container">
                   <div class="row photos">
+                        <?php 
+                              for($i = 2; $i < count($photos); $i++):?>
+                                    <div class="col-sm-6 col-md-4 col-lg-3 item">
+                                          <a href="images/big-images/<?= $photos[$i] ?>" data-lightbox="photos">
+                                                <img class="img-fluid" src="images/small-images/<?= $photos[$i] ?>">
+                                          </a>
+                                    </div>
+                        <?php
+                              endfor;
+                        ?>
 
-                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="images/desk.jpg"
-                                    data-lightbox="photos"><img class="img-fluid" src="images/desk.jpg"></a></div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="images/building.jpg"
-                                    data-lightbox="photos"><img class="img-fluid" src="images/building.jpg"></a></div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="images/loft.jpg"
-                                    data-lightbox="photos"><img class="img-fluid" src="images/loft.jpg"></a></div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="images/build1.jpg"
-                                    data-lightbox="photos"><img class="img-fluid" src="images/build1.jpg"></a></div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="images/diz1.jpg"
-                                    data-lightbox="photos"><img class="img-fluid" src="images/diz1.jpg"></a></div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="images/desk.jpg"
-                                    data-lightbox="photos"><img class="img-fluid" src="images/desk.jpg"></a></div>
-                  </div>
-                  <div class="row form">
-                        <form>
-                              <div class="custom-file mb-2">
-                                    <input type="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Выбрать файл</label>
-                              </div>
-                              <button type="submit" class="btn btn-primary">Загрузить</button>
-                        </form>
+                        <div class="col-sm-6 col-md-4 col-lg-3 item">
+                              <form action="send.php" method="POST" enctype="multipart/form-data">
+                                    <div class="custom-file mb-2">
+                                          <input type="file" name="photo" class="custom-file-input" id="customFile"
+                                                accept="image/*" require>
+                                          <label class="custom-file-label" for="customFile">Выбрать файл</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Загрузить</button>
+                              </form>
+                        </div>
+
+
                   </div>
             </div>
       </div>
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
