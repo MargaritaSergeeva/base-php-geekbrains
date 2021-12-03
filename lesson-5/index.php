@@ -33,7 +33,7 @@
                         ?>
 
                         <div class="col-sm-6 col-md-4 col-lg-3 item">
-                              <form action="send.php" method="POST" enctype="multipart/form-data">
+                              <form action="php/send.php" method="POST" enctype="multipart/form-data">
                                     <div class="custom-file mb-2">
                                           <input type="file" name="photo" class="custom-file-input" id="customFile"
                                                 accept="image/*" require>
