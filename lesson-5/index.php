@@ -1,7 +1,7 @@
 <?php
     require_once "php/config.php";
 
-    $sql = "select * from gallery";
+    $sql = "select * from gallery order by views desc";
     $res = mysqli_query($connect, $sql);
 ?>
 
@@ -27,7 +27,7 @@
                         <?php 
                               while($photos = mysqli_fetch_assoc($res)):?>
                                     <div class="col-sm-6 col-md-4 col-lg-3 item">
-                                          <a href="<?= $photos['path_big'] . $photos['name'] . "." . $photos['type']?>" data-lightbox="photos">
+                                          <a href="<?= $photos['path_big'] . $photos['name'] . "." . $photos['type']?>" data-lightbox="photos" data-title="Просмотров: <?= $photos['views']?>">
                                                 <img class="img-fluid" src="<?= $photos['path_small'] . $photos['name'] . "." . $photos['type'] ?>">
                                           </a>
                                     </div>
