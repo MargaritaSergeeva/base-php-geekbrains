@@ -1,5 +1,8 @@
 <?php
-      $photos = scandir("images/small-images");
+    require_once "php/config.php";
+
+    $sql = "select * from gallery";
+    $res = mysqli_query($connect, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -22,14 +25,14 @@
             <div class="container">
                   <div class="row photos">
                         <?php 
-                              for($i = 2; $i < count($photos); $i++):?>
+                              while($photos = mysqli_fetch_assoc($res)):?>
                                     <div class="col-sm-6 col-md-4 col-lg-3 item">
-                                          <a href="images/big-images/<?= $photos[$i] ?>" data-lightbox="photos">
-                                                <img class="img-fluid" src="images/small-images/<?= $photos[$i] ?>">
+                                          <a href="<?= $photos['path_big'] . $photos['name'] . "." . $photos['type']?>" data-lightbox="photos">
+                                                <img class="img-fluid" src="<?= $photos['path_small'] . $photos['name'] . "." . $photos['type'] ?>">
                                           </a>
                                     </div>
                         <?php
-                              endfor;
+                              endwhile;
                         ?>
 
                         <div class="col-sm-6 col-md-4 col-lg-3 item">
