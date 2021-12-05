@@ -1,6 +1,6 @@
 <?php
 
-function resizeImage ($file, $filename, $size = 300, $quality = 85, $path_save, $new_filename)
+function resizeImage ($file, $size = 300, $quality = 85, $path_save, $new_filename)
 {
     /*
     * Адрес директории для сохранения картинки
@@ -13,7 +13,7 @@ function resizeImage ($file, $filename, $size = 300, $quality = 85, $path_save, 
     */
 
 
-    $ext  = strtolower(strrchr(basename($filename), "."));
+    $ext  = strtolower(strrchr(basename($new_filename), "."));
 
     /*
     * Допустимые форматы

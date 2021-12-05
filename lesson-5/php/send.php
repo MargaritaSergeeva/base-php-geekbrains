@@ -1,6 +1,6 @@
 <?php
 
-require_once('./download-image.php');
+require_once('./resize-image.php');
 
 $nameImg = $_FILES['photo']['name'];
 
@@ -14,7 +14,6 @@ if ($_FILES['photo']['error'] == 4) {
 }
 
 
-
-resizeImage($_FILES['photo']['tmp_name'], $nameImg, 300, 85, $pathSmall, $nameImg);
+resizeImage($_FILES['photo']['tmp_name'], 300, 85, $pathSmall, $nameImg);
 move_uploaded_file($_FILES['photo']['tmp_name'], $pathBig);
 header('Location: ../index.php');
