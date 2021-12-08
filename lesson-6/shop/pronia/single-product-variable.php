@@ -2,19 +2,38 @@
 require_once "assets/php/Mysql.php";
 
 $connect = (new Mysql());
-$res = $connect->query("select good_id, goods.name, cost_price, p.name as photo, preview
+$id = $_GET['id'];
+
+$res = $connect->query("select goods.id,
+       goods.name,
+       description,
+       cost_price,
+       reviewer_name,
+       reviewer_range,
+       group_concat(p.name) as photo,
+       review
 from goods
-         left join photos p on
-    goods.id = p.good_id
-where preview = true;");
+         left join photos p on goods.id = p.good_id
+         left join reviews r on goods.id = r.good_id
+where goods.id = {$id}
+group by r.id;");
+
+$goodData = $res[0];
+
+//echo "<pre>";
+//var_dump($res );
+//exit();
 ?>
 
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pronia - Shop</title>
+    <title>Pronia - Single Product Variable</title>
     <meta name="robots" content="index, follow"/>
     <meta name="description"
           content="Pronia plant store bootstrap 5 template is an awesome website template for any home plant shop.">
@@ -36,7 +55,9 @@ where preview = true;");
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
+
 <body>
 <div class="preloader-activate preloader-active open_tm_preloader">
     <div class="preloader-area-wrap">
@@ -821,111 +842,288 @@ where preview = true;");
     </header>
     <!-- Main Header Area End Here -->
 
-    <!-- Begin Main Content Area -->
+    <!-- Begin Main Content Area  -->
     <main class="main-content">
         <div class="breadcrumb-area breadcrumb-height" data-bg-image="assets/images/breadcrumb/bg/1-1-1919x388.jpg">
             <div class="container h-100">
                 <div class="row h-100">
                     <div class="col-lg-12">
                         <div class="breadcrumb-item">
-                            <h2 class="breadcrumb-heading">Shop</h2>
+                            <h2 class="breadcrumb-heading">Single Product</h2>
                             <ul>
                                 <li>
                                     <a href="index.html">Home</a>
                                 </li>
-                                <li>Shop Default</li>
+                                <li>Single Product variable</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="shop-area section-space-y-axis-100">
+        <div class="single-product-area section-space-top-100">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="grid-view" role="tabpanel"
-                                 aria-labelledby="grid-view-tab">
-                                <div class="product-grid-view row g-y-20">
+                    <div class="col-lg-6">
+                        <div class="single-product-img">
+                            <div class="swiper-container single-product-slider">
+                                <div class="swiper-wrapper">
                                     <?php
-                                    foreach ($res as $data):?>
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="product-item" style="display: flex;
-                                                    flex-direction: column;
-                                                    justify-content: space-between;
-                                                    height: 100%;">
-                                                <div class="product-img">
-                                                    <a href="single-product-variable.php?id=<?= $data['good_id'] ?>">
-                                                        <img class="primary-img"
-                                                             src="assets/images/product/small-size/<?= $data['photo'] ?>"
-                                                             alt="Product Images">
-                                                    </a>
-                                                    <div class="product-add-action">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="wishlist.html" data-tippy="Add to wishlist"
-                                                                   data-tippy-inertia="true"
-                                                                   data-tippy-animation="shift-away"
-                                                                   data-tippy-delay="50" data-tippy-arrow="true"
-                                                                   data-tippy-theme="sharpborder">
-                                                                    <i class="pe-7s-like"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li class="quuickview-btn" data-bs-toggle="modal"
-                                                                data-bs-target="#quickModal">
-                                                                <a href="#" data-tippy="Quickview"
-                                                                   data-tippy-inertia="true"
-                                                                   data-tippy-animation="shift-away"
-                                                                   data-tippy-delay="50" data-tippy-arrow="true"
-                                                                   data-tippy-theme="sharpborder">
-                                                                    <i class="pe-7s-look"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="cart.html" data-tippy="Add to cart"
-                                                                   data-tippy-inertia="true"
-                                                                   data-tippy-animation="shift-away"
-                                                                   data-tippy-delay="50" data-tippy-arrow="true"
-                                                                   data-tippy-theme="sharpborder">
-                                                                    <i class="pe-7s-cart"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="product-content">
-                                                    <a class="product-name"
-                                                       href="single-product-variable.php?id=<?= $data['good_id'] ?>"><?= $data['name'] ?></a>
-                                                    <div class="price-box pb-1">
-                                                        <span class="new-price"><?= $data['cost_price'] ?> руб.</span>
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <ul>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        foreach (explode(',' , $goodData['photo']) as $photo):?>
+                                        <div class="swiper-slide">
+                                            <a href="assets/images/product/small-size/<?= $photo ?>"
+                                               class="single-img gallery-popup">
+                                                <img class="img-full" src="assets/images/product/large-size/<?= $photo ?>"
+                                                     alt="Product Image">
+                                            </a>
                                         </div>
+
                                     <?php
                                         endforeach;
                                     ?>
                                 </div>
                             </div>
+                            <div class="thumbs-arrow-holder">
+                                <div class="swiper-container single-product-thumbs">
+                                    <div class="swiper-wrapper">
+
+                                        <?php
+                                        foreach (explode(',' , $goodData['photo']) as $photo):?>
+                                            <a class="swiper-slide">
+                                                <img class="img-full" src="assets/images/product/large-size/<?= $photo ?>"
+                                                     alt="Product Thumnail">
+                                            </a>
+                                        <?php
+                                            endforeach;
+                                        ?>
+                                    </div>
+                                    <!-- Add Arrows -->
+                                    <div class=" thumbs-button-wrap d-none d-md-block">
+                                        <div class="thumbs-button-prev">
+                                            <i class="pe-7s-angle-left"></i>
+                                        </div>
+                                        <div class="thumbs-button-next">
+                                            <i class="pe-7s-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pt-5 pt-lg-0">
+                        <div class="single-product-content">
+                            <h2 class="title"><?= $goodData['name']?></h2>
+                            <div class="price-box">
+                                <span class="new-price"><?= $goodData['cost_price']?> руб.</span>
+                            </div>
+                            <div class="rating-box-wrap">
+                                <div class="rating-box">
+                                    <ul>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="review-status">
+                                    <a href="#">( <?= count($res) ?> отзыва )</a>
+                                </div>
+                            </div>
+
+                            <p class="short-desc"><?= $goodData['description']?></p>
+                            <ul class="quantity-with-btn">
+                                <li class="quantity">
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box" value="1" type="text">
+                                    </div>
+                                </li>
+                                <li class="add-to-cart">
+                                    <a class="btn btn-custom-size lg-size btn-pronia-primary" href="cart.html">Add to
+                                        cart</a>
+                                </li>
+                                <li class="wishlist-btn-wrap">
+                                    <a class="custom-circle-btn" href="wishlist.html">
+                                        <i class="pe-7s-like"></i>
+                                    </a>
+                                </li>
+                                <li class="compare-btn-wrap">
+                                    <a class="custom-circle-btn" href="compare.html">
+                                        <i class="pe-7s-refresh-2"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="service-item-wrap">
+                                <li class="service-item">
+                                    <div class="service-img">
+                                        <img src="assets/images/shipping/icon/car.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="service-content">
+                                        <span class="title">Free <br> Shipping</span>
+                                    </div>
+                                </li>
+                                <li class="service-item">
+                                    <div class="service-img">
+                                        <img src="assets/images/shipping/icon/card.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="service-content">
+                                        <span class="title">Safe <br> Payment</span>
+                                    </div>
+                                </li>
+                                <li class="service-item">
+                                    <div class="service-img">
+                                        <img src="assets/images/shipping/icon/service.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="service-content">
+                                        <span class="title">Safe <br> Payment</span>
+                                    </div>
+                                </li>
+                            </ul>
 
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+        <div class="product-tab-area section-space-top-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav product-tab-nav tab-style-2 pt-0" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="active tab-btn" id="description-tab" data-bs-toggle="tab" href="#description"
+                                   role="tab" aria-controls="description" aria-selected="true">
+                                    Описание
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="tab-btn" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab"
+                                   aria-controls="reviews" aria-selected="false">
+                                    Отзывы (<?= count($res) ?>)
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content product-tab-content">
+
+                            <div class="tab-pane fade show active" id="description" role="tabpanel"
+                                 aria-labelledby="description-tab">
+                                <div class="product-description-body">
+                                    <p class="short-desc mb-0">
+                                        <?= $goodData['description']?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <div class="product-review-body">
+                                    <div class="blog-comment mt-0">
+                                        <h4 class="heading">Отзывы <?= count($res) ?></h4>
+
+                                        <?php
+                                        foreach (explode(',' , $goodData['photo']) as $photo):?>
+                                            <div class="blog-comment-item">
+                                                <div class="blog-comment-content">
+                                                    <div class="user-meta">
+                                                        <h2 class="user-name"></h2>
+                                                    </div>
+                                                    <p class="user-comment">Lorem ipsum dolor sit amet, consectetur adipisi
+                                                        elit, sed
+                                                        do eiusmod tempor incidid ut labore etl dolore magna aliqua. Ut enim
+                                                        ad
+                                                        minim
+                                                        veniam, quis nostrud exercitati ullamco laboris nisi ut aliquiex ea
+                                                        commodo
+                                                        consequat.
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                        <div class="blog-comment-item">
+                                            <div class="blog-comment-img">
+                                                <img src="assets/images/blog/avatar/1-1-120x120.png" alt="User Image">
+                                            </div>
+                                            <div class="blog-comment-content">
+                                                <div class="user-meta">
+                                                    <h2 class="user-name">Donald Chavez</h2>
+                                                </div>
+                                                <p class="user-comment">Lorem ipsum dolor sit amet, consectetur adipisi
+                                                    elit, sed
+                                                    do eiusmod tempor incidid ut labore etl dolore magna aliqua. Ut enim
+                                                    ad
+                                                    minim
+                                                    veniam, quis nostrud exercitati ullamco laboris nisi ut aliquiex ea
+                                                    commodo
+                                                    consequat.
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="blog-comment-item">
+                                            <div class="blog-comment-img">
+                                                <img src="assets/images/blog/avatar/1-3-120x120.png" alt="User Image">
+                                            </div>
+                                            <div class="blog-comment-content">
+                                                <div class="user-meta">
+                                                    <h2 class="user-name">Donald Chavez</h2>
+                                                    <span class="date">21 July 2021</span>
+                                                </div>
+                                                <p class="user-comment">Lorem ipsum dolor sit amet, consectetur adipisi
+                                                    elit, sed
+                                                    do eiusmod tempor incidid ut labore etl dolore magna aliqua. Ut enim
+                                                    ad
+                                                    minim
+                                                    veniam, quis nostrud exercitati ullamco laboris nisi ut aliquiex ea
+                                                    commodo
+                                                    consequat.
+                                                </p>
+                                                <a class="btn btn-custom-size comment-btn" href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-area">
+                                        <h2 class="heading">Leave a comment</h2>
+                                        <form class="feedback-form" action="#">
+                                            <div class="group-input">
+                                                <div class="form-field me-md-30 mb-30 mb-md-0">
+                                                    <input type="text" name="name" placeholder="Your Name*"
+                                                           class="input-field">
+                                                </div>
+                                                <div class="form-field">
+                                                    <input type="text" name="email" placeholder="Your Email*"
+                                                           class="input-field">
+                                                </div>
+                                            </div>
+                                            <div class="form-field mt-30">
+                                                <input type="text" name="subject" placeholder="Subject (Optinal)"
+                                                       class="input-field">
+                                            </div>
+                                            <div class="form-field mt-30">
+                                                <textarea name="message" placeholder="Message"
+                                                          class="textarea-field"></textarea>
+                                            </div>
+                                            <div class="button-wrap pt-5">
+                                                <button type="submit" value="submit"
+                                                        class="btn btn-custom-size xl-size btn-pronia-primary"
+                                                        name="submit">Post
+                                                    Comment
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </main>
-    <!-- Main Content Area End Here -->
+    <!-- Main Content Area End Here  -->
 
     <!-- Begin Footer Area -->
     <div class="footer-area" data-bg-image="assets/images/footer/bg/1-1920x465.jpg">
@@ -1151,23 +1349,7 @@ where preview = true;");
                                         <a href="#">( 1 Review )</a>
                                     </div>
                                 </div>
-                                <div class="selector-wrap color-option">
-                                    <span class="selector-title border-bottom-0">Color</span>
-                                    <select class="nice-select wide border-bottom-0 rounded-0">
-                                        <option value="default">Black & White</option>
-                                        <option value="blue">Blue</option>
-                                        <option value="green">Green</option>
-                                        <option value="red">Red</option>
-                                    </select>
-                                </div>
-                                <div class="selector-wrap size-option">
-                                    <span class="selector-title">Size</span>
-                                    <select class="nice-select wide rounded-0">
-                                        <option value="medium">Medium Size & Poot</option>
-                                        <option value="large">Large Size With Poot</option>
-                                        <option value="small">Small Size With Poot</option>
-                                    </select>
-                                </div>
+
                                 <p class="short-desc">Lorem ipsum dolor sit amet, consectetur adipisic elit, sed do
                                     eiusmod
                                     tempo incid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostru
@@ -1242,11 +1424,6 @@ where preview = true;");
 
 <!-- Global Vendor, plugins JS -->
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
-
 <!-- JS Files
 ============================================ -->
 
@@ -1269,7 +1446,5 @@ where preview = true;");
 <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>
-
-
-
