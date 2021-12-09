@@ -1046,12 +1046,12 @@ $goodData = $res[0];
                                                 </div>
                                                 <div class="form-field">
                                                     <input type="text" name="email" placeholder="Ваш Email*"
-                                                           class="input-field" required>
+                                                           class="input-field" required pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
                                                 </div>
                                             </div>
                                             <div class="form-field mt-30">
                                                 <input type="text" name="range" placeholder="Оценка от 1 до 5"
-                                                       class="input-field" required>
+                                                       class="input-field" required pattern="[0-5]{1}">
                                             </div>
                                             <div class="form-field mt-30">
                                                 <textarea name="message" placeholder="Сообщение"

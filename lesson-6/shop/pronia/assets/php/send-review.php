@@ -3,12 +3,13 @@
 require_once "Mysql.php";
 
 $connect = (new Mysql());
+
 if ($_POST['name'] && $_POST['email']) {
-    $goodId = $_POST['id'];
-    $reviewerName = $_POST['name'];
-    $reviewerEmail = $_POST['email'];
-    $reviewerRange = $_POST['range'];
-    $text = $_POST['message'];
+    $goodId = (int) $_POST['id'];
+    $reviewerName = htmlspecialchars($_POST['name']);
+    $reviewerEmail = htmlspecialchars($_POST['email']);
+    $reviewerRange = (int) $_POST['range'];
+    $text = htmlspecialchars($_POST['message']);
 
     $insertIntoReviewsSql = "insert into reviews(good_id, reviewer_name, reviewer_range, review, reviewer_email) values ( $goodId, '$reviewerName', $reviewerRange, '$text', '$reviewerEmail')";
     $insertIntoReviews = $connect->query($insertIntoReviewsSql);
