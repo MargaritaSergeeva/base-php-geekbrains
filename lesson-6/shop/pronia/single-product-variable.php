@@ -1019,20 +1019,14 @@ $goodData = $res[0];
                                         <h4 class="heading">Отзывы <?= count($res) ?></h4>
 
                                         <?php
-                                        foreach (explode(',' , $goodData['photo']) as $photo):?>
+                                        foreach ($res as $review):?>
                                             <div class="blog-comment-item">
                                                 <div class="blog-comment-content">
                                                     <div class="user-meta">
-                                                        <h2 class="user-name"></h2>
+                                                        <h2 class="user-name"><?= $review['reviewer_name']?></h2>
                                                     </div>
-                                                    <p class="user-comment">Lorem ipsum dolor sit amet, consectetur adipisi
-                                                        elit, sed
-                                                        do eiusmod tempor incidid ut labore etl dolore magna aliqua. Ut enim
-                                                        ad
-                                                        minim
-                                                        veniam, quis nostrud exercitati ullamco laboris nisi ut aliquiex ea
-                                                        commodo
-                                                        consequat.
+                                                    <p class="user-comment">
+                                                        <?= $review['review']?>
                                                     </p>
 
                                                 </div>
@@ -1040,75 +1034,33 @@ $goodData = $res[0];
                                         <?php
                                         endforeach;
                                         ?>
-                                        <div class="blog-comment-item">
-                                            <div class="blog-comment-img">
-                                                <img src="assets/images/blog/avatar/1-1-120x120.png" alt="User Image">
-                                            </div>
-                                            <div class="blog-comment-content">
-                                                <div class="user-meta">
-                                                    <h2 class="user-name">Donald Chavez</h2>
-                                                </div>
-                                                <p class="user-comment">Lorem ipsum dolor sit amet, consectetur adipisi
-                                                    elit, sed
-                                                    do eiusmod tempor incidid ut labore etl dolore magna aliqua. Ut enim
-                                                    ad
-                                                    minim
-                                                    veniam, quis nostrud exercitati ullamco laboris nisi ut aliquiex ea
-                                                    commodo
-                                                    consequat.
-                                                </p>
 
-                                            </div>
-                                        </div>
-
-                                        <div class="blog-comment-item">
-                                            <div class="blog-comment-img">
-                                                <img src="assets/images/blog/avatar/1-3-120x120.png" alt="User Image">
-                                            </div>
-                                            <div class="blog-comment-content">
-                                                <div class="user-meta">
-                                                    <h2 class="user-name">Donald Chavez</h2>
-                                                    <span class="date">21 July 2021</span>
-                                                </div>
-                                                <p class="user-comment">Lorem ipsum dolor sit amet, consectetur adipisi
-                                                    elit, sed
-                                                    do eiusmod tempor incidid ut labore etl dolore magna aliqua. Ut enim
-                                                    ad
-                                                    minim
-                                                    veniam, quis nostrud exercitati ullamco laboris nisi ut aliquiex ea
-                                                    commodo
-                                                    consequat.
-                                                </p>
-                                                <a class="btn btn-custom-size comment-btn" href="#">Reply</a>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="feedback-area">
-                                        <h2 class="heading">Leave a comment</h2>
+                                        <h2 class="heading">Оставить комментарий</h2>
                                         <form class="feedback-form" action="#">
                                             <div class="group-input">
                                                 <div class="form-field me-md-30 mb-30 mb-md-0">
-                                                    <input type="text" name="name" placeholder="Your Name*"
-                                                           class="input-field">
+                                                    <input type="text" name="name" placeholder="Ваше имя*"
+                                                           class="input-field" required>
                                                 </div>
                                                 <div class="form-field">
-                                                    <input type="text" name="email" placeholder="Your Email*"
-                                                           class="input-field">
+                                                    <input type="text" name="email" placeholder="Ваш Email*"
+                                                           class="input-field" required>
                                                 </div>
                                             </div>
                                             <div class="form-field mt-30">
-                                                <input type="text" name="subject" placeholder="Subject (Optinal)"
-                                                       class="input-field">
+                                                <input type="text" name="subject" placeholder="Оценка от 1 до 5"
+                                                       class="input-field" required>
                                             </div>
                                             <div class="form-field mt-30">
-                                                <textarea name="message" placeholder="Message"
-                                                          class="textarea-field"></textarea>
+                                                <textarea name="message" placeholder="Сообщение"
+                                                          class="textarea-field" required></textarea>
                                             </div>
                                             <div class="button-wrap pt-5">
                                                 <button type="submit" value="submit"
                                                         class="btn btn-custom-size xl-size btn-pronia-primary"
-                                                        name="submit">Post
-                                                    Comment
+                                                        name="submit">Отправить комментарий
                                                 </button>
                                             </div>
                                         </form>
