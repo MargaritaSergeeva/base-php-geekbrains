@@ -1038,7 +1038,7 @@ $goodData = $res[0];
                                     </div>
                                     <div class="feedback-area">
                                         <h2 class="heading">Оставить комментарий</h2>
-                                        <form class="feedback-form" action="#">
+                                        <form class="feedback-form" action="assets/php/send-review.php" method="post">
                                             <div class="group-input">
                                                 <div class="form-field me-md-30 mb-30 mb-md-0">
                                                     <input type="text" name="name" placeholder="Ваше имя*"
@@ -1050,7 +1050,7 @@ $goodData = $res[0];
                                                 </div>
                                             </div>
                                             <div class="form-field mt-30">
-                                                <input type="text" name="subject" placeholder="Оценка от 1 до 5"
+                                                <input type="text" name="range" placeholder="Оценка от 1 до 5"
                                                        class="input-field" required>
                                             </div>
                                             <div class="form-field mt-30">
@@ -1063,6 +1063,8 @@ $goodData = $res[0];
                                                         name="submit">Отправить комментарий
                                                 </button>
                                             </div>
+
+                                            <input type="hidden" name="id" value="<?= $_GET['id']?>">
                                         </form>
                                     </div>
                                 </div>
